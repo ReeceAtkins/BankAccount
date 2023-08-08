@@ -51,12 +51,21 @@ namespace BankAccount
         /// Withdraws an amount of money from the balance and
         /// returns the updated balance
         /// </summary>
-        /// <param name="amt">The positive amount of money to be
+        /// <param name="amount">The positive amount of money to be
         /// taken from the balance</param>
         /// <returns>Returns updated balance after withdrawl</returns>
-        public double Withdraw(double amt)
+        public double Withdraw(double amount)
         {
-            Balance -= amt;
+            if (amount > Balance)
+            {
+                throw new ArgumentException($"{nameof(amount)} cannot be greater than {nameof(Balance)}");
+            }
+
+            if (amount <= 0)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(amount)} must be greater than 0");
+            }
+            Balance -= amount;
             return Balance;
         }
     }
